@@ -39,7 +39,6 @@ export default {
     // 请求蓝莓数据方法
     getHttp() {
       this.$api.getLanmei({ blueBerryjam_id: 1 }).then((res) => {
-        console.log(res);
         let list = res.data.blueBerryJam;
         for (let i = 0; i < list.length; i++) {
           list[i].img = list[i].img.replace(

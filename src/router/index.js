@@ -17,21 +17,33 @@ const routes = [
         path: "/",
         name: "Home",
         component: Home,
+        meta: {
+          isLogin: false,
+        },
       },
       {
         path: "/about",
         name: "About",
         component: About,
+        meta: {
+          isLogin: true,
+        },
       },
       {
         path: "/news",
         name: "News",
         component: News,
+        meta: {
+          isLogin: true,
+        },
       },
       {
         path: "/travel",
         name: "Travel",
         component: Travel,
+        meta: {
+          isLogin: true,
+        },
       },
     ],
   },

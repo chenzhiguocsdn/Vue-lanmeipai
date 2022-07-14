@@ -7,6 +7,8 @@ import "./plugins/element";
 import "./assets/css/reset.css";
 // 导入 api
 import api from "./api/index";
+// 路由拦截
+import "./router/permission.js";
 Vue.prototype.$api = api;
 Vue.config.productionTip = false;
 
