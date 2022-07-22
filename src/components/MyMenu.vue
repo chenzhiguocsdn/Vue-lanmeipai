@@ -17,7 +17,7 @@
       <el-menu-item index="travel">旅游</el-menu-item>
       <!-- 导航右侧 -->
       <div class="nav-right">
-        <el-button>登录</el-button>
+        <router-link to="/login"><el-button>登录</el-button></router-link>
       </div>
     </el-menu>
   </div>

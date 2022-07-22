@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import jwt from "jwt-decode";
 export default {
   data() {
     var checkAccount = (rule, value, callback) => {
@@ -42,11 +43,7 @@ export default {
         if (!Number.isInteger(value)) {
           callback(new Error("请输入数字值"));
         } else {
-          if (value < 12) {
-            callback(new Error("必须小于12位"));
-          } else {
-            callback();
-          }
+          callback();
         }
       }, 1000);
     };
@@ -73,7 +70,22 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          // 测试
+          console.log("校验成功", this.ruleForm);
+          this.$api
+            .getLogin({
+              user: this.ruleForm.account,
+              pwd: this.ruleForm.pass,
+            })
+            .then((res) => {
+              console.log(res.data);
+              console.log(jwt(res.data.token));
+              let obj = {
+                token: res.data.token,
+                username: jwt(res.data.token).user,
+              };
+              this.$store.commit("LoginModule/clearUser", obj);
+            });
         } else {
           console.log("error submit!!");
           return false;
