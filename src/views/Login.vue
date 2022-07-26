@@ -79,12 +79,15 @@ export default {
             })
             .then((res) => {
               console.log(res.data);
-              console.log(jwt(res.data.token));
               let obj = {
                 token: res.data.token,
                 username: jwt(res.data.token).user,
               };
-              this.$store.commit("LoginModule/clearUser", obj);
+              this.$store.commit("LoginModule/setUser", obj);
+              // 数据持久化
+              localStorage.setItem("userinfo", JSON.stringify(obj));
+              // 跳转到首页
+              this.$router.push("/");
             });
         } else {
           console.log("error submit!!");

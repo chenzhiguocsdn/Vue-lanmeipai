@@ -11,7 +11,11 @@ import api from "./api/index";
 import "./router/permission.js";
 Vue.prototype.$api = api;
 Vue.config.productionTip = false;
-
+let userinfo = localStorage.getItem("userinfo");
+if (userinfo) {
+  userinfo = JSON.parse(userinfo);
+  store.commit("LoginModule/setUser", userinfo);
+}
 new Vue({
   router,
   store,
