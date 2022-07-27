@@ -17,13 +17,22 @@
       <el-menu-item index="travel">旅游</el-menu-item>
       <!-- 导航右侧 -->
       <div class="nav-right">
-        <el-button>登录</el-button>
+        <el-button v-if="!userinfo.username" size="small" @click="login"
+          >登录</el-button
+        >
+        <template v-else>
+          <span>欢迎：{{ userinfo.username }}</span>
+          <i class="el-icon-switch-button" @click="loginout"
+            ><span class="loginout">退出登录</span></i
+          >
+        </template>
       </div>
     </el-menu>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -31,7 +40,26 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("LoginModule", ["clearUser"]),
     handleSelect() {},
+    // 登录
+    login() {
+      this.$router.push("/login");
+    },
+    // 退出登录
+    loginout() {
+      // 清除 vuex 中的数据
+      this.clearUser();
+      // 清除本地数据
+      localStorage.removeItem("userinfo");
+      //跳转当前的url地址路径
+      if (this.$route.path !== "/") {
+        this.$router.push("/login");
+      }
+    },
+  },
+  computed: {
+    ...mapState("LoginModule", ["userinfo"]),
   },
 };
 </script>
@@ -55,9 +83,19 @@ export default {
     padding-right: 10px;
   }
   i {
+    display: inline-block;
     font-size: 20px;
     vertical-align: middle;
     cursor: pointer;
+    margin-top: 1px;
   }
+}
+.loginout {
+  display: inline-block;
+  height: 20px;
+  font-size: 16px;
+  margin-left: 8px;
+  margin-bottom: 1px;
+  line-height: 20px;
 }
 </style>
