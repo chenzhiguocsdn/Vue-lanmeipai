@@ -34,5 +34,13 @@ const api = {
     // axios.defaults.headers.authorization = token;
     // return axios.post(base.getuser);
   },
+  getNews(type, num) {
+    return axios
+      .get(base.news + type + "/" + (num - 1) * 10 + "-10.html")
+      .then((res) => {
+        let data = JSON.parse(res.data.slice(9, -1));
+        return data[type];
+      });
+  },
 };
 export default api;
