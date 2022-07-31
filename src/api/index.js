@@ -42,5 +42,20 @@ const api = {
         return data[type];
       });
   },
+  /**
+   * 穷游搜索接口
+   */
+  getSearch(params) {
+    //{keyword:xx}
+    return axios.get(base.search, {
+      params,
+    });
+  },
+  /**
+   * 今日推荐 tuijian
+   */
+  getTuijian() {
+    return axios.get(base.tuijian);
+  },
 };
 export default api;

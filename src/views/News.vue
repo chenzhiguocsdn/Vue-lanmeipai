@@ -18,7 +18,23 @@
         </ul>
         <MyPagination @changePage="changePage"></MyPagination>
       </el-tab-pane>
-      <el-tab-pane label="国内" name="second">国内</el-tab-pane>
+      <el-tab-pane label="国内" name="second">
+        <ul class="list">
+          <li v-for="(item, index) in gouneiList" :key="index">
+            <img :src="item.imgsrc" alt="" />
+            <span class="title"
+              ><a :href="item.url">{{ item.title }}</a></span
+            >
+            <div class="content">
+              <span>来源：{{ item.source }}</span>
+              <span>时间：{{ item.ptime }}</span>
+              <span>评论数: {{ item.commentCount }}</span>
+            </div>
+            <div class="clear"></div>
+          </li>
+        </ul>
+        <MyPagination @changePage="changePageGuonei"></MyPagination>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -54,8 +70,14 @@ export default {
     // 接收当前页码
     changePage(val) {
       this.$api.getNews(yaowen, val).then((res) => {
-        console.log("要闻数据", res);
         this.yaowenList = res;
+      });
+      document.documentElement.scrollTop = 0;
+    },
+
+    changePageGuonei(val) {
+      this.$api.getNews(guonei, val).then((res) => {
+        this.gouneiList = res;
       });
       document.documentElement.scrollTop = 0;
     },
